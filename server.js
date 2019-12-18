@@ -73,7 +73,6 @@ app.delete("/api/notes/:id", function (req, res) {
         notesDB = JSON.parse(data);
         //the selected note ID is filtered out of the new notesDB array, which will be written as the new notes array
         notesDB = notesDB.filter(function(object){
-            console.log(object.id, noteID)
             return object.id != noteID
         })
 
