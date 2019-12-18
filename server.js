@@ -6,9 +6,6 @@ const fs = require("fs");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//note generating mechanics
-// let idGenerator = 0
-
 //data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -43,8 +40,6 @@ app.get("/api/notes", function (req, res) {
 app.post("/api/notes", function (req, res) {
     const newNote = req.body
     let notesDB = []
-    // idGenerator++
-    // newNote.id = idGenerator
     fs.readFile(path.join(__dirname + "/db/db.json"), "utf8", function (err, data) {
         if (err) {
             return console.log(err);
@@ -76,6 +71,7 @@ app.delete("/api/notes/:id", function (req, res) {
         }
         console.log(data)
         notesDB = JSON.parse(data);
+        //the selected note ID is filtered out of the new notesDB array, which will be written as the new notes array
         notesDB = notesDB.filter(function(object){
             console.log(object.id, noteID)
             return object.id != noteID
